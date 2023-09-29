@@ -23,16 +23,14 @@ class DbHelper {
   }
 
   void _createDb(Database db, int version) async {
-    await db.execute(
-        '''
+    await db.execute('''
     CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT,
     password TEXT
   )''');
 
-    await db.execute(
-        '''
+    await db.execute('''
     CREATE TABLE finance (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     date TEXT,
@@ -42,8 +40,7 @@ class DbHelper {
   )''');
 
     // insert to table user
-    await db
-        .insert("user", {'username': 'riska@mail.co', 'password': 'password'});
+    await db.insert("user", {'username': 'dwiary06', 'password': 'password'});
   }
 
   //* User

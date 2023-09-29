@@ -3,6 +3,7 @@ import 'package:mobile_finance_dwi/view/income.dart';
 import 'package:mobile_finance_dwi/view/pengeluaran.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_finance_dwi/view/setting.dart';
+import 'package:mobile_finance_dwi/controller/sql_helper.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +11,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int totalIncome = 0;
+  int totalExpense = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTotalIncomeAndExpense();
+  }
+
+  Future<void> _fetchTotalIncomeAndExpense() async {
+    // Initialize your DBHelper
+    final dbHelper = DbHelper();
+
+    // Fetch the total income and total expense
+    final income = await dbHelper.getTotalIncome();
+    final expense = await dbHelper.getTotalExpense();
+
+    setState(() {
+      totalIncome = income;
+      totalExpense = expense;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +59,7 @@ class _HomeState extends State<Home> {
               ),
               Center(
                 child: Text(
-                  'Pengeluaran',
+                  'Pengeluaran : Rp. $totalExpense',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -48,7 +72,7 @@ class _HomeState extends State<Home> {
               ),
               Center(
                 child: Text(
-                  'Pemasukan',
+                  'Pemasukan : Rp. $totalIncome',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -81,8 +105,10 @@ class _HomeState extends State<Home> {
                         clipBehavior: Clip.hardEdge,
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => EntryForm()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => AddIncomePage()));
                           },
                           child: Column(
                             children: [

@@ -20,7 +20,7 @@ final routes = {
   homeRoute: (BuildContext context) => Home(),
   settingsRoute: (BuildContext context) => SettingsPage(),
   addExpenseRoute: (BuildContext context) => Spend(),
-  addIncomeRoute: (BuildContext context) => EntryForm(),
+  addIncomeRoute: (BuildContext context) => AddIncomePage(),
   detailCashFlowRoute: (BuildContext context) => CashFlow(),
 };
 
